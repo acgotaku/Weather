@@ -1,5 +1,25 @@
+html {
+  font-size: 62.5%;
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  font-size: 2.5rem;
+}
+
+.weather {
+  width: 320px;
+  margin: 20px auto;
+}
+
+.weather-city {
+  text-align: center;
+}
+
+.weather-desc {
+  display: flex;
+  margin-top: 20px;
+  font-size: 1.4rem;
 }
