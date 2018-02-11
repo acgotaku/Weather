@@ -19,6 +19,12 @@ body {
   margin-bottom: 20px;
 }
 
+.weather-form {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
 .weather-city {
   text-align: center;
 }

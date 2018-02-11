@@ -1,5 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
+import RaisedButton from 'material-ui/RaisedButton';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 import './index.css';
 
@@ -25,8 +29,6 @@ class Weather extends React.Component {
         }
       ]
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.fetchWeather(this.state.citys[this.state.current].woeid);
   }
 
@@ -67,16 +69,16 @@ class Weather extends React.Component {
     return Number.parseInt((temperature - 32) / 1.8, 10);
   }
 
-  handleChange(event) {
+  handleChange = (event, index, value) => {
     this.setState({
-      current: event.target.value,
+      current: value,
       show: !this.state.show
     }, () => {
       this.fetchWeather(this.state.citys[this.state.current].woeid);
     });
   }
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault();
     this.setState({
       show: !this.state.show
@@ -88,22 +90,21 @@ class Weather extends React.Component {
   render() {
     const citys = this.state.citys.map((info, index) => {
       return (
-        <option value={index} key={index}> {info.city} </option>
+        <MenuItem value={index} key={index} primaryText={info.city} />
       )
     })
 
     return (
       <div className="weather">
         <div className="weather-select">
-          <form onSubmit={this.handleSubmit}>
-          <label>
-             Pick one city:
-             <select value={this.state.current} onChange={this.handleChange}>
-               {citys}
-             </select>
-           </label>
-           <input type="submit" value="Submit" />
+          <MuiThemeProvider>
+          <form onSubmit={this.handleSubmit} className="weather-form">
+               <DropDownMenu value={this.state.current} onChange={this.handleChange}>
+                {citys}
+               </DropDownMenu>
+               <RaisedButton type="submit" label="Submit" primary={true} />
            </form>
+           </MuiThemeProvider>
         </div>
         <div className="weather-content-wrapper">
           <div className={`weather-content ${this.state.show ? 'show' : 'loading'}`}>
