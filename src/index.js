@@ -112,7 +112,7 @@ class Weather extends React.Component {
             </div>
             <div className="weather-desc">
               <div className="weather-icon">
-                <img src={`/images/${this.state.weather.code}.svg`} alt="weather icon" />
+                <img src={this.state.weather.code ? `/images/${this.state.weather.code}.svg` : ''} alt="weather icon" />
               </div>
               <div className="weather-info">
                 <p> {this.state.weather.text} </p>
