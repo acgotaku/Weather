@@ -33,17 +33,12 @@ body {
   margin-left: 20px;
 }
 
-.weather-content {
-  opacity: 0;
-}
-
 .weather-content.show {
-  opacity: 1;
-  transition: opacity 800ms ease;
+  animation: fadein 1s;
 }
 
 .weather-content.loading {
-  opacity: 0;
+  visibility: hidden;
 }
 
 .weather-content-wrapper {
@@ -54,9 +49,13 @@ body {
   position: absolute;
   top: calc(50% - 40px);
   left: calc(50% - 40px);
-  opacity: 1;
 }
 
 .weather-content-loading.hide {
-  opacity: 0;
+  visibility: hidden;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }

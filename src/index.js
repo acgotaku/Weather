@@ -26,6 +26,7 @@ class Weather extends React.Component {
       ]
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.fetchWeather(this.state.citys[this.state.current].woeid);
   }
 
@@ -75,6 +76,15 @@ class Weather extends React.Component {
     });
   }
 
+  handleSubmit(event) {
+    event.preventDefault();
+    this.setState({
+      show: !this.state.show
+    }, () => {
+      this.fetchWeather(this.state.citys[this.state.current].woeid);
+    });
+  }
+
   render() {
     const citys = this.state.citys.map((info, index) => {
       return (
@@ -85,12 +95,15 @@ class Weather extends React.Component {
     return (
       <div className="weather">
         <div className="weather-select">
+          <form onSubmit={this.handleSubmit}>
           <label>
              Pick one city:
              <select value={this.state.current} onChange={this.handleChange}>
                {citys}
              </select>
            </label>
+           <input type="submit" value="Submit" />
+           </form>
         </div>
         <div className="weather-content-wrapper">
           <div className={`weather-content ${this.state.show ? 'show' : 'loading'}`}>
@@ -107,7 +120,7 @@ class Weather extends React.Component {
               </div>
             </div>
           </div>
-          <img className={`weather-content-loading ${this.state.show ? 'hide' : ''}`} src="images/loading.svg" />
+          <img className={`weather-content-loading ${this.state.show ? 'hide' : ''}`} src="images/loading.svg" alt="loading icon" />
         </div>
       </div>
     )
