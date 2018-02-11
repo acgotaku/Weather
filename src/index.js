@@ -39,13 +39,26 @@ class Weather extends React.Component {
             weather: data.query.results.channel.item.condition,
             show: !this.state.show
           })
-          console.log(this.state.show)
         })
       } else {
-        console.log(response)
+        console.log(response);
+        this.setState({
+          weather: {
+            code: 3200,
+            text: 'API unavailable!'
+          },
+          show: !this.state.show
+        })
       }
     }).catch((err) => {
-      console.log(err)
+      console.log(err);
+      this.setState({
+        weather: {
+          code: 3200,
+          text: 'network unavailable!'
+        },
+        show: !this.state.show
+      })
     })
   }
 
@@ -59,7 +72,6 @@ class Weather extends React.Component {
       show: !this.state.show
     }, () => {
       this.fetchWeather(this.state.citys[this.state.current].woeid);
-      console.log(this.state.show)
     });
   }
 
@@ -80,7 +92,8 @@ class Weather extends React.Component {
              </select>
            </label>
         </div>
-          <div className={`weather-content ${this.state.show ? 'show' : 'hide'}`}>
+        <div className="weather-content-wrapper">
+          <div className={`weather-content ${this.state.show ? 'show' : 'loading'}`}>
             <div className="weather-city">
               {this.state.citys[this.state.current].city}
             </div>
@@ -94,6 +107,8 @@ class Weather extends React.Component {
               </div>
             </div>
           </div>
+          <img className={`weather-content-loading ${this.state.show ? 'hide' : ''}`} src="images/loading.svg" />
+        </div>
       </div>
     )
   }

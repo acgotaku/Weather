@@ -42,6 +42,21 @@ body {
   transition: opacity 800ms ease;
 }
 
-.weather-content.hide {
+.weather-content.loading {
+  opacity: 0;
+}
+
+.weather-content-wrapper {
+  position: relative;
+}
+
+.weather-content-loading {
+  position: absolute;
+  top: calc(50% - 40px);
+  left: calc(50% - 40px);
+  opacity: 1;
+}
+
+.weather-content-loading.hide {
   opacity: 0;
 }
