@@ -32,3 +32,16 @@ body {
 .weather-info {
   margin-left: 20px;
 }
+
+.weather-content {
+  opacity: 0;
+}
+
+.weather-content.show {
+  opacity: 1;
+  transition: opacity 800ms ease;
+}
+
+.weather-content.hide {
+  opacity: 0;
+}

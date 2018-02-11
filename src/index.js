@@ -9,6 +9,7 @@ class Weather extends React.Component {
     this.state = {
       weather: Object.create(null),
       current: 0,
+      show: false,
       citys: [
         {
           city: 'Tokyo',
@@ -35,8 +36,10 @@ class Weather extends React.Component {
       if (response.ok) {
         response.json().then((data)=>{
           this.setState({
-            weather: data.query.results.channel.item.condition
+            weather: data.query.results.channel.item.condition,
+            show: !this.state.show
           })
+          console.log(this.state.show)
         })
       } else {
         console.log(response)
@@ -51,8 +54,12 @@ class Weather extends React.Component {
   }
 
   handleChange(event) {
-    this.setState({current: event.target.value}, () => {
+    this.setState({
+      current: event.target.value,
+      show: !this.state.show
+    }, () => {
       this.fetchWeather(this.state.citys[this.state.current].woeid);
+      console.log(this.state.show)
     });
   }
 
@@ -73,18 +80,20 @@ class Weather extends React.Component {
              </select>
            </label>
         </div>
-        <div className="weather-city">
-          {this.state.citys[this.state.current].city}
-        </div>
-        <div className="weather-desc">
-          <div className="weather-icon">
-            <img src={`/images/${this.state.weather.code}.svg`} alt="weather icon" />
+          <div className={`weather-content ${this.state.show ? 'show' : 'hide'}`}>
+            <div className="weather-city">
+              {this.state.citys[this.state.current].city}
+            </div>
+            <div className="weather-desc">
+              <div className="weather-icon">
+                <img src={`/images/${this.state.weather.code}.svg`} alt="weather icon" />
+              </div>
+              <div className="weather-info">
+                <p> {this.state.weather.text} </p>
+                <p> {this.toCelsius(this.state.weather.temp)} °C </p>
+              </div>
+            </div>
           </div>
-          <div className="weather-info">
-            <p> {this.state.weather.text} </p>
-            <p> {this.toCelsius(this.state.weather.temp)} °C </p>
-          </div>
-        </div>
       </div>
     )
   }
