@@ -14,6 +14,11 @@ body {
   margin: 20px auto;
 }
 
+.weather-select {
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+}
+
 .weather-city {
   text-align: center;
 }
@@ -22,4 +27,8 @@ body {
   display: flex;
   margin-top: 20px;
   font-size: 1.4rem;
+}
+
+.weather-info {
+  margin-left: 20px;
 }

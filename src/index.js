@@ -8,13 +8,24 @@ class Weather extends React.Component {
     super(props);
     this.state = {
       weather: Object.create(null),
-      city: {
-        Tokyo: '1118370',
-        'New York': '2459115',
-        London: '44418'
-      }
+      current: 0,
+      citys: [
+        {
+          city: 'Tokyo',
+          woeid: '1118370'
+        },
+        {
+          city: 'New York',
+          woeid: '2459115'
+        },
+        {
+          city: 'London',
+          woeid: '44418'
+        }
+      ]
     };
-    this.fetchWeather(this.state.city['Tokyo'])
+    this.handleChange = this.handleChange.bind(this);
+    this.fetchWeather(this.state.citys[this.state.current].woeid);
   }
 
   fetchWeather(woeid) {
@@ -39,11 +50,31 @@ class Weather extends React.Component {
     return Number.parseInt((temperature - 32) / 1.8, 10);
   }
 
+  handleChange(event) {
+    this.setState({current: event.target.value}, () => {
+      this.fetchWeather(this.state.citys[this.state.current].woeid);
+    });
+  }
+
   render() {
+    const citys = this.state.citys.map((info, index) => {
+      return (
+        <option value={index} key={index}> {info.city} </option>
+      )
+    })
+
     return (
       <div className="weather">
+        <div className="weather-select">
+          <label>
+             Pick one city:
+             <select value={this.state.current} onChange={this.handleChange}>
+               {citys}
+             </select>
+           </label>
+        </div>
         <div className="weather-city">
-          Tokyo
+          {this.state.citys[this.state.current].city}
         </div>
         <div className="weather-desc">
           <div className="weather-icon">
